@@ -1,8 +1,26 @@
 # Med-MICN: Towards Multi-dimensional Explanation Alignment for Medical Classification
 
-**Official repository for the paper [Towards Multi-dimensional Explanation Alignment for Medical Classification](https://arxiv.org/abs/2410.21494) (NeurIPS 2024).**
+**Paper:** [arXiv](https://arxiv.org/abs/2410.21494) · **Project page:** [https://xll0328.github.io/medmicn/](https://xll0328.github.io/medmicn/)
 
-**Authors:** Lijie Hu~, Songning Lai~, Wenshuo Chen~, Hongru Xiao, Hongbin Lin, Lu Yu, Jingfeng Zhang, Di Wang
+NeurIPS 2024. Official repository for [Towards Multi-dimensional Explanation Alignment for Medical Classification](https://arxiv.org/abs/2410.21494).
+
+**Authors:** Lijie Hu†, Songning Lai†, Wenshuo Chen† (equal contribution), Hongru Xiao, Hongbin Lin, Lu Yu, Jingfeng Zhang, Di Wang
+
+---
+
+## Framework overview
+
+![Med-MICN framework](docs/figures/framework.jpg)
+
+Med-MICN consists of four primary modules: (1) **Feature Extraction Module** — image features via backbone (e.g. ResNet50, VGG19, DenseNet169). (2) **Concept Embedding Module** — concept encoder outputs concept embeddings and predicted category information. (3) **Concept Semantic Alignment** — VLM annotates image features and generates concept labels. (4) **Neural Symbolic Layer** — concept embeddings go to the neural symbolic layer for concept reasoning rules; then concatenated with image features for final prediction.
+
+---
+
+## Multi-dimensional interpretability
+
+![Multi-dimensional interpretability](docs/figures/ct.jpg)
+
+Concept score prediction, concept reasoning rules, and saliency maps achieve alignment within the interpretative framework (concepts $c_0, \ldots, c_7$ along the y-axis).
 
 ---
 
@@ -12,18 +30,7 @@ The lack of interpretability in medical image analysis has significant ethical a
 
 ---
 
-## Framework overview
-
-Med-MICN consists of four primary modules:
-
-1. **Feature Extraction Module** — Image features are extracted using a backbone (e.g. ResNet50, VGG19, DenseNet169).
-2. **Concept Embedding Module** — Extracted features are fed into a concept encoder to obtain concept embeddings and predicted category information.
-3. **Concept Semantic Alignment** — A Vision-Language Model (VLM) is used to annotate image features and generate concept labels aligned with categories.
-4. **Neural Symbolic Layer** — Concept embeddings are input into the neural symbolic layer to derive concept reasoning rules. Concept embeddings are concatenated with original image features and fed into the final prediction layer.
-
----
-
-## Key formulas (from paper)
+## Key formulas
 
 Concept score from heatmaps (average pooling):
 
@@ -39,13 +46,13 @@ $$\hat{y}_j = \land_{i=1}^{N} ( \neg I_{o, i, j} \lor I_{r, i, j} ) = \min_{i \i
 
 Overall loss:
 
-$$\mathcal{L} = \mathcal{L}_{task} + \lambda_1 \cdot \mathcal{L}_{c} + \lambda_2 \cdot \mathcal{L}_{neural}$$
+$$\mathcal{L} = \mathcal{L}_{\mathrm{task}} + \lambda_1 \cdot \mathcal{L}_{c} + \lambda_2 \cdot \mathcal{L}_{\mathrm{neural}}$$
 
-where $\mathcal{L}_c$ is BCE for concept labels, $\mathcal{L}_{neural}$ is BCE/CE for neural-symbolic prediction, and $\mathcal{L}_{task}$ is CE for final classification. We use $\lambda_1 = \lambda_2 = 0.1$.
+with $\mathcal{L}_{\mathrm{task}} = \mathrm{CE}(\tilde{y}, y)$, $\mathcal{L}_{\mathrm{neural}} = \mathrm{BCE}(\hat{y}_{\mathrm{neural}}, y)$, and $\lambda_1 = \lambda_2 = 0.1$.
 
 ---
 
-## Main results (Table from paper)
+## Main results
 
 | Method | Backbone | COVID-CT Acc./F1 | DDI Acc./F1 | Chest X-Ray Acc./F1 | Fitzpatrick17k Acc./F1 | Interpretability |
 |--------|----------|------------------|-------------|---------------------|------------------------|-------------------|
