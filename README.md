@@ -48,7 +48,7 @@ Overall loss:
 
 $$\mathcal{L} = \mathcal{L}_{\mathrm{task}} + \lambda_1 \cdot \mathcal{L}_{c} + \lambda_2 \cdot \mathcal{L}_{\mathrm{neural}}$$
 
-with $\mathcal{L}_{\mathrm{task}} = \mathrm{CE}(\tilde{y}, y)$, $\mathcal{L}_{\mathrm{neural}} = \mathrm{BCE}(\hat{y}_{\mathrm{neural}}, y)$, and $\lambda_1 = \lambda_2 = 0.1$.
+where the task loss is CE for the fused prediction, the neural loss is BCE for the neural-symbolic prediction, and we use $\lambda_1 = \lambda_2 = 0.1$.
 
 ---
 
