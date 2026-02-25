@@ -2,7 +2,7 @@
 
 **Official repository for the paper [Towards Multi-dimensional Explanation Alignment for Medical Classification](https://arxiv.org/abs/2410.21494) (NeurIPS 2024).**
 
-**Authors:** Lijie Hu, Songning Lai, Wenshuo Chen, Hongru Xiao, Hongbin Lin, Lu Yu, Jingfeng Zhang, Di Wang
+**Authors:** Lijie Hu~, Songning Lai~, Wenshuo Chen~, Hongru Xiao, Hongbin Lin, Lu Yu, Jingfeng Zhang, Di Wang
 
 ---
 
